@@ -36,7 +36,7 @@ contract Raffle is VRFConsumerBaseV2 {
     function fullfillRandomWords(
         uint256 requestID,
         uint256[] memory randomWords
-    ) internal override {}
+    ) internal {}
 
     function getEntranceFee() public view returns (uint256) {
         return i_entranceFee;
