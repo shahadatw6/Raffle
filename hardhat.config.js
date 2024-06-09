@@ -1,9 +1,8 @@
-// require("@nomiclabs/hardhat-waffle");
-// require("@nomiclabs/hardhat-etherscan");
-// require("hardhat-deploy");
+require("hardhat-deploy");
 require("solidity-coverage");
 require("hardhat-gas-reporter");
-// require("hardhat-contract-sizer");
+require("@nomiclabs/hardhat-waffle");
+
 require("dotenv").config();
 
 /**
@@ -30,6 +29,7 @@ const ETHERSCAN_API_KEY =
 const POLYGONSCAN_API_KEY =
   process.env.POLYGONSCAN_API_KEY || "Your polygonscan API key";
 const REPORT_GAS = process.env.REPORT_GAS || false;
+
 module.exports = {
   solidity: "0.8.24",
   defaultNetwork: "hardhat",
@@ -43,18 +43,12 @@ module.exports = {
     sepolia: {
       url: SEPOLIA_RPC_URL,
       accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
-      //   accounts: {
-      //     mnemonic: MNEMONIC,
-      //   },
       saveDeployments: true,
       chainId: 11155111,
     },
     mainnet: {
       url: MAINNET_RPC_URL,
       accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
-      //   accounts: {
-      //     mnemonic: MNEMONIC,
-      //   },
       saveDeployments: true,
       chainId: 1,
     },
@@ -72,5 +66,12 @@ module.exports = {
     player: {
       default: 1,
     },
+  },
+  etherscan: {
+    apiKey: ETHERSCAN_API_KEY,
+  },
+  gasReporter: {
+    enabled: REPORT_GAS,
+    currency: "USD",
   },
 };
