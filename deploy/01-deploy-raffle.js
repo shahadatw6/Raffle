@@ -4,7 +4,7 @@ const {
   networkConfig,
 } = require("../helper-hardhat-config");
 const { verify } = require("../utils/verify");
-const VRF_SUB_FUND_AMOUNT = ethers.parseEther("1");
+const VRF_SUB_FUND_AMOUNT = ethers.parseEther("30");
 //
 module.exports = async function ({ getNamedAccounts, deployments }) {
   const { deploy, log } = deployments;
@@ -17,7 +17,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
       "VRFCoordinatorV2Mock"
     );
     vrfCoordinatorV2Address = vrfCoordinatorV2Mock.address;
-    const transectionResponse = await vrfCoordinatorV2Mock.createSubscription();
+    const transectionResponse = await vrfCoordinatorV2Mock.createSubcription();
     const transectionReceipt = await transectionResponse.wait(1);
     subscriptionId = transectionReceipt.events[0].args.subId;
 
@@ -27,9 +27,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
       VRF_SUB_FUND_AMOUNT
     );
   } else {
-    console.log("fddddddddddddddddddddddddddd");
     vrfCoordinatorV2Address = networkConfig[chainId]["vrfCoordinatorV2"];
-    console.log(vrfCoordinatorV2Address);
     subscriptionId = networkConfig[chainId]["subscriptionId"];
   }
 
@@ -42,6 +40,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     entranceFee,
     gasLane,
     subscriptionId,
+    ,
     callbackGasLimit,
     interval,
   ];
@@ -51,7 +50,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     log: true,
     waitConfirmations: network.config.waitBlockConfirmations || 1,
   });
-  console.log("deployed");
+
   if (
     !developmentChains.includes(network.name) &&
     process.env.ETHERSCAN_API_KEY
