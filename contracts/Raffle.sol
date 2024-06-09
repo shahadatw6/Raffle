@@ -127,6 +127,9 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     function fulfillRandomWords(
         uint256 /*requestId*/,
         uint256[] memory randomWords
+<<<<<<< HEAD
+    ) internal {}
+=======
     ) internal override {
         uint256 indexOfWinner = randomWords[0] % s_players.length;
         address payable recentWinner = s_players[indexOfWinner];
@@ -172,6 +175,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     function getInterval() public view returns (uint256) {
         return i_interval;
     }
+>>>>>>> 28d85ac1c706e43850698bd08612e6d3cfacf724
 
     function getEntranceFee() public view returns (uint256) {
         return i_entranceFee;
